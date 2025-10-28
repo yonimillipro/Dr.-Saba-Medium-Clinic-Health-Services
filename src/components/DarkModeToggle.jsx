@@ -1,6 +1,5 @@
 // DarkModeToggle.jsx
-import React from 'react';
-import { useTheme } from '../context/ThemeContext'; // Adjust path
+import { useTheme } from "../context/ThemeContext"; // Adjust path
 
 function DarkModeToggle() {
   const { isDark, toggleTheme } = useTheme();
@@ -10,12 +9,13 @@ function DarkModeToggle() {
       onClick={toggleTheme}
       className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded"
     >
-      {isDark ? '🌙 Dark' : '☀️ Light'}
+      {isDark ? "🌙 Dark" : "☀️ Light"}
     </button>
   );
 }
 
 export default DarkModeToggle;
+
 // import { useEffect, useState } from 'react';
 
 // function DarkModeToggle() {
