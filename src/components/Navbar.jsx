@@ -26,6 +26,9 @@ function Navbar() {
     { path: "/contact", name: "Contact" },
   ];
 
+  // Logic for active link text color in Desktop
+  const activeLinkTextColor = isDark ? "text-gray-300" : "text-amber-300";
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -60,7 +63,7 @@ function Navbar() {
             </motion.span>
           </Link>
 
-          {/* Desktop Navigation - MODIFIED HOVER COLOR */}
+          {/* Desktop Navigation - MODIFIED ACTIVE COLOR */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
@@ -68,18 +71,22 @@ function Navbar() {
                 to={link.path}
                 className={`relative text-base md:text-lg font-medium transition-colors ${
                   location.pathname === link.path
-                    ? "text-amber-300"
-                    : // MODIFIED LINE BELOW: Change hover color based on theme
+                    ? // MODIFIED: Use the dynamic color variable
+                      activeLinkTextColor
+                    : // Hover text color logic remains from previous edit
                     isDark
-                    ? "text-white hover:text-gray-300" // Light gray hover for dark theme
-                    : "text-white hover:text-amber-200" // Amber hover for light theme
+                    ? "text-white hover:text-gray-300"
+                    : "text-white hover:text-amber-200"
                 }`}
               >
                 {link.name}
                 {location.pathname === link.path && (
                   <motion.span
                     layoutId="navUnderline"
-                    className="absolute left-0 bottom-0 w-full h-0.5 bg-amber-300"
+                    // Optionally, you might want the underline to be gray too
+                    className={`absolute left-0 bottom-0 w-full h-0.5 ${
+                      isDark ? "bg-gray-300" : "bg-amber-300"
+                    }`}
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -133,7 +140,9 @@ function Navbar() {
                 to={link.path}
                 className={`block py-2 px-4 rounded-lg transition-colors ${
                   location.pathname === link.path
-                    ? "bg-amber-800 text-white"
+                    ? isDark
+                      ? "bg-gray-700 text-gray-200" // Set active mobile background to dark gray
+                      : "bg-amber-800 text-white" // Keep active mobile background amber in light theme
                     : `text-white ${
                         isDark
                           ? "hover:bg-gray-400/50"
@@ -156,6 +165,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 // import { useState, useEffect } from "react";
 // import { Link, useLocation } from "react-router-dom";
 // import { motion } from "framer-motion";
