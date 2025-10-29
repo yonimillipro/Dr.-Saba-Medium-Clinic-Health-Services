@@ -30,9 +30,9 @@ const clinicImages = [
   },
   {
     id: 2,
-    src: "clinicIMG/Exa-2.jpg",
-    alt: "Medical examination room",
-    title: "Examination Room",
+    src: "/clinicIMG/Med-equ.jpg",
+    alt: "Medical equipment  room",
+    title: "Medical equipment Room",
   },
   {
     id: 3,
