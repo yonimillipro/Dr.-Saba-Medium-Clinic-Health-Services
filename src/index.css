@@ -29,6 +29,11 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background: #ffffff;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+html.dark body {
+  background: #071625;
 }
 
 button,
@@ -95,6 +100,41 @@ img {
 
 .map-muted iframe {
   filter: saturate(0.65) contrast(0.95);
+  transition: filter 300ms ease;
+}
+
+.dark .map-muted iframe {
+  filter: invert(0.9) hue-rotate(175deg) saturate(0.55) contrast(0.9);
+}
+
+@layer components {
+  .theme-page {
+    @apply bg-white text-[#10243e] transition-colors duration-300 dark:bg-[#071625] dark:text-slate-100;
+  }
+
+  .theme-heading {
+    @apply text-[#10243e] transition-colors dark:text-slate-50;
+  }
+
+  .theme-copy {
+    @apply text-slate-600 transition-colors dark:text-slate-300;
+  }
+
+  .theme-muted {
+    @apply text-slate-500 transition-colors dark:text-slate-400;
+  }
+
+  .theme-border {
+    @apply border-slate-200 transition-colors dark:border-white/10;
+  }
+
+  .theme-soft {
+    @apply bg-[#eef7f5] transition-colors dark:bg-[#0d2531];
+  }
+
+  .theme-icon-surface {
+    @apply bg-[#eef7f5] text-[#087f73] transition-colors dark:bg-[#143542] dark:text-teal-300;
+  }
 }
 
 @media (max-width: 640px) {

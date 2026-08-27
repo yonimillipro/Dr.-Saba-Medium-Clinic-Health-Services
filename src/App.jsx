@@ -13,7 +13,7 @@ function App() {
       future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
     >
       <ScrollToTop />
-      <div className="min-h-screen bg-white text-[#10243e]">
+      <div className="theme-page min-h-screen">
         <Navbar />
         <main>
           <Routes>
