@@ -1,229 +1,179 @@
+import { ArrowRight, HeartHandshake, Phone, Stethoscope } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import teamImage from "../assets/clinicIMG/nurse.jpg";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+const doctors = [
+  {
+    name: "Dr. Saba W/gebriel",
+    specialty: "General Medicine",
+    experience: "15 years of experience",
+    initials: "SW",
   },
-};
+  {
+    name: "Dr. Kassahune Mamo",
+    specialty: "Cardiology",
+    experience: "12 years of experience",
+    initials: "KM",
+  },
+  {
+    name: "Dr. Moges",
+    specialty: "Pediatrics",
+    experience: "10 years of experience",
+    initials: "DM",
+  },
+  {
+    name: "Dr. Henok Asfa",
+    specialty: "Orthopedics",
+    experience: "20 years of experience",
+    initials: "HA",
+  },
+];
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
   visible: {
-    y: 0,
     opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
+    y: 0,
+    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 function Doctors() {
-  const doctors = [
-    {
-      name: "Dr. Saba W/gebriel",
-      specialty: "General Medicine",
-      experience: "15 years",
-      education: "MD, Hayate Medical School",
-    },
-    {
-      name: "Dr. Kassahune Mamo",
-      specialty: "Cardiology",
-      experience: "12 years",
-      education: "MD, Johns Hopkins University",
-    },
-    {
-      name: "Dr. Moges",
-      specialty: "Pediatrics",
-      experience: "10 years",
-      education: "MD, Stanford University",
-    },
-    {
-      name: "Dr. Henok Asfa",
-      specialty: "Orthopedics",
-      experience: "20 years",
-      education: "MD, Yale University",
-    },
-  ];
-
-  // The unified gradient background class
-  const unifiedGradientBg =
-    "bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900";
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      // UPDATED BACKGROUND HERE
-      className={`min-h-screen py-12 ${unifiedGradientBg}`}
-    >
-      <div className="container mx-auto my-10 px-4">
-        <motion.h1
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className=" my-20 text-5xl font-extrabold text-amber-900 text-center dark:text-white mb-16 drop-shadow-lg "
-        >
-          Our Medical Team
-        </motion.h1>
-
+    <div className="overflow-hidden bg-white pb-28 pt-[132px] sm:pt-[160px]">
+      <section className="page-shell grid items-end gap-12 pb-20 lg:grid-cols-[0.94fr_1.06fr] lg:gap-20">
         <motion.div
-          variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
         >
-          {doctors.map((doctor, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
-            >
-              <div className="w-32 h-32 mx-auto mb-4 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
-              <h3 className="text-xl font-semibold mb-2 text-center dark:text-white">
-                {doctor.name}
-              </h3>
-              <p className="text-amber-700 dark:text-blue-400 text-center mb-2">
-                {doctor.specialty}
-              </p>
-              <div className="text-gray-600 dark:text-gray-300 text-sm">
-                <p className="mb-1">Experience: {doctor.experience}</p>
-                {/* <p>Education: {doctor.education}</p> */}
-              </div>
-            </motion.div>
-          ))}
+          <motion.div variants={reveal} className="eyeline-rule mb-8" />
+          <motion.h1
+            variants={reveal}
+            className="font-display max-w-[700px] text-[clamp(3.8rem,8vw,7.7rem)] leading-[0.9] tracking-[-0.05em] text-[#10243e]"
+          >
+            Expertise,
+            <br />
+            with empathy.
+          </motion.h1>
+          <motion.p
+            variants={reveal}
+            className="mt-7 max-w-[570px] text-lg leading-8 text-slate-600"
+          >
+            Our medical team brings broad experience to every consultation while
+            keeping the conversation clear, respectful, and centered on you.
+          </motion.p>
         </motion.div>
 
-        {/* --- Start of new addition with card styling --- */}
-        <div className="bg-amber-900/25 mt-16 text-center max-w-2xl mx-auto border border-gray-500 dark:border-gray-700  dark:bg-gray-800 p-6 rounded-lg shadow-md">
-          <p className=" text-lg text-gray-700/80 dark:text-gray-300">
-            Our team of doctors, with experience ranging from 10 to 20 years, is
-            dedicated to providing high-quality care. Each of our specialists
-            brings a wealth of knowledge and expertise to ensure you receive the
-            best possible treatment.
-          </p>
+        <motion.div
+          initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 28px)" }}
+          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 28px)" }}
+          transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-[28px] bg-[#eef7f5]"
+        >
+          <img
+            src={teamImage}
+            alt="Consultation room at Doctor Saba Medical Center"
+            className="aspect-[1.2/1] w-full object-cover"
+          />
+          <div className="absolute bottom-5 left-5 rounded-xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur">
+            <p className="flex items-center gap-2 text-sm font-semibold text-[#087f73]">
+              <HeartHandshake className="h-4 w-4" /> Patient-centered care
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="bg-[#eef7f5] py-20 sm:py-28">
+        <div className="page-shell grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#087f73]">
+              Our medical team
+            </p>
+            <h2 className="font-display mt-4 text-4xl leading-tight text-[#10243e] sm:text-5xl">
+              Experience across the care you need most.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-70px" }}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+            className="border-t border-[#10243e]/15"
+          >
+            {doctors.map((doctor) => (
+              <motion.article
+                key={doctor.name}
+                variants={reveal}
+                className="grid gap-5 border-b border-[#10243e]/15 py-7 sm:grid-cols-[64px_1fr_auto] sm:items-center"
+              >
+                <span className="grid h-14 w-14 place-items-center rounded-full bg-white font-display text-lg text-[#087f73] shadow-sm">
+                  {doctor.initials}
+                </span>
+                <div>
+                  <h3 className="font-display text-3xl text-[#10243e]">
+                    {doctor.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-semibold text-[#087f73]">
+                    {doctor.specialty}
+                  </p>
+                </div>
+                <p className="text-sm text-slate-500 sm:text-right">
+                  {doctor.experience}
+                </p>
+              </motion.article>
+            ))}
+          </motion.div>
         </div>
-        {/* --- End of new addition --- */}
-      </div>
-    </motion.div>
+      </section>
+
+      <section className="page-shell py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-90px" }}
+          transition={{ duration: 0.65 }}
+          className="grid gap-8 border-y border-slate-200 py-12 lg:grid-cols-[1fr_auto] lg:items-center"
+        >
+          <div className="flex gap-5">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#eef7f5] text-[#087f73]">
+              <Stethoscope className="h-5 w-5" />
+            </span>
+            <div>
+              <h2 className="font-display text-4xl text-[#10243e]">
+                Find the right care for your concern.
+              </h2>
+              <p className="mt-3 max-w-[650px] leading-7 text-slate-600">
+                Call the clinic and our team will guide you to the appropriate
+                service or available clinician.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <a
+              href="tel:+251936640980"
+              className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl bg-[#087f73] px-6 text-sm font-semibold text-white hover:bg-[#06675e]"
+            >
+              <Phone className="h-4 w-4" /> Call the clinic
+            </a>
+            <Link
+              to="/contact"
+              className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl border border-[#087f73] px-6 text-sm font-semibold text-[#087f73] hover:bg-[#eef7f5]"
+            >
+              Contact details <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+    </div>
   );
 }
 
 export default Doctors;
-// import { motion } from "framer-motion";
-
-// const containerVariants = {
-//   hidden: { opacity: 0 },
-//   visible: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.2,
-//     },
-//   },
-// };
-
-// const itemVariants = {
-//   hidden: { y: 20, opacity: 0 },
-//   visible: {
-//     y: 0,
-//     opacity: 1,
-//     transition: {
-//       duration: 0.5,
-//     },
-//   },
-// };
-
-// function Doctors() {
-//   const doctors = [
-//     {
-//       name: "Dr. Saba W/gebriel",
-//       specialty: "General Medicine",
-//       experience: "15 years",
-//       education: "MD, Hayate Medical School",
-//     },
-//     {
-//       name: "Dr. Kassahune Mamo",
-//       specialty: "Cardiology",
-//       experience: "12 years",
-//       education: "MD, Johns Hopkins University",
-//     },
-//     {
-//       name: "Dr. Moges",
-//       specialty: "Pediatrics",
-//       experience: "10 years",
-//       education: "MD, Stanford University",
-//     },
-//     {
-//       name: "Dr. Henok Asfa",
-//       specialty: "Orthopedics",
-//       experience: "20 years",
-//       education: "MD, Yale University",
-//     },
-//   ];
-
-//   return (
-//     <motion.div
-//       initial={{ opacity: 0 }}
-//       animate={{ opacity: 1 }}
-//       transition={{ duration: 0.8 }}
-//       className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900"
-//     >
-//       <div className="container mx-auto my-10 px-4">
-//         <motion.h1
-//           initial={{ y: -20, opacity: 0 }}
-//           animate={{ y: 0, opacity: 1 }}
-//           transition={{ duration: 0.5 }}
-//           className=" my-20 text-5xl font-extrabold text-amber-900 text-center dark:text-white mb-16 drop-shadow-lg "
-//         >
-//           Our Medical Team
-//         </motion.h1>
-
-//         <motion.div
-//           variants={containerVariants}
-//           initial="hidden"
-//           animate="visible"
-//           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-//         >
-//           {doctors.map((doctor, index) => (
-//             <motion.div
-//               key={index}
-//               variants={itemVariants}
-//               whileHover={{ scale: 1.05 }}
-//               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all"
-//             >
-//               <div className="w-32 h-32 mx-auto mb-4 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
-//               <h3 className="text-xl font-semibold mb-2 text-center dark:text-white">
-//                 {doctor.name}
-//               </h3>
-//               <p className="text-amber-700 dark:text-blue-400 text-center mb-2">
-//                 {doctor.specialty}
-//               </p>
-//               <div className="text-gray-600 dark:text-gray-300 text-sm">
-//                 <p className="mb-1">Experience: {doctor.experience}</p>
-//                 {/* <p>Education: {doctor.education}</p> */}
-//               </div>
-//             </motion.div>
-//           ))}
-//         </motion.div>
-
-//         {/* --- Start of new addition with card styling --- */}
-//         <div className="bg-amber-900/25 mt-16 text-center max-w-2xl mx-auto border border-gray-500 dark:border-gray-700  dark:bg-gray-800 p-6 rounded-lg shadow-md">
-//           <p className=" text-lg text-gray-700/80 dark:text-gray-300">
-//             Our team of doctors, with experience ranging from 10 to 20 years, is
-//             dedicated to providing high-quality care. Each of our specialists
-//             brings a wealth of knowledge and expertise to ensure you receive the
-//             best possible treatment.
-//           </p>
-//         </div>
-//         {/* --- End of new addition --- */}
-//       </div>
-//     </motion.div>
-//   );
-// }
-
-// export default Doctors;

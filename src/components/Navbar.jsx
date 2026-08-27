@@ -1,319 +1,143 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import DarkModeToggle from "./DarkModeToggle";
-import drLogo1 from "../assets/drLogo1.jpg";
-import { useTheme } from "../context/ThemeContext";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, Phone, X } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import logoSource from "../assets/d1.png";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
+  { to: "/doctors", label: "Our Doctors" },
+  { to: "/contact", label: "Contact" },
+];
+
+function Brand() {
+  return (
+    <Link to="/" className="focus-ring flex items-center gap-2.5 rounded-lg">
+      <span className="brand-symbol" aria-hidden="true">
+        <img src={logoSource} alt="" />
+      </span>
+      <span className="leading-[1.03]">
+        <span className="block text-[15px] font-semibold tracking-[-0.02em] text-[#1e2d7b] sm:text-[17px]">
+          Doctor Saba
+        </span>
+        <span className="block text-[13px] font-medium italic text-[#087f73] sm:text-[15px]">
+          Medical center
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 function Navbar() {
-  const { isDark } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { path: "/", name: "Home" },
-    { path: "/services", name: "Services" },
-    { path: "/doctors", name: "Our Doctors" },
-    { path: "/contact", name: "Contact" },
-  ];
-
-  // Logic for active link text color in Desktop
-  const activeLinkTextColor = isDark ? "text-gray-300" : "text-amber-300";
+  useEffect(() => setIsOpen(false), [location.pathname]);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         isScrolled
-          ? isDark
-            ? "bg-gray-900/90 shadow-lg"
-            : "bg-amber-950/90 shadow-lg"
-          : isDark
-          ? "bg-gray-900"
-          : "bg-amber-950"
+          ? "border-slate-200/80 bg-white/95 shadow-[0_10px_35px_rgba(16,36,62,0.06)] backdrop-blur-xl"
+          : "border-transparent bg-white/90"
       }`}
     >
-      <div className="container mx-auto px-3 py-3">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center space-x-2">
-            <motion.img
-              src={drLogo1}
-              alt="Dr.Saba Medium Clinic Logo"
-              className="h-14 rounded-xl"
-              whileHover={{ rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            />
-            {/* Make the font size responsive */}
-            <motion.span
-              className="text-lg md:text-xl lg:text-2xl font-bold text-white"
-              whileHover={{ scale: 1.05 }}
-            >
-              Dr.Saba Medium Clinic
-            </motion.span>
-          </Link>
+      <div className="page-shell flex h-[78px] items-center justify-between sm:h-[88px]">
+        <Brand />
 
-          {/* Desktop Navigation - MODIFIED ACTIVE COLOR */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative text-base md:text-lg font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? // MODIFIED: Use the dynamic color variable
-                      activeLinkTextColor
-                    : // Hover text color logic remains from previous edit
-                    isDark
-                    ? "text-white hover:text-gray-300"
-                    : "text-white hover:text-amber-200"
-                }`}
-              >
-                {link.name}
-                {location.pathname === link.path && (
-                  <motion.span
-                    layoutId="navUnderline"
-                    // Optionally, you might want the underline to be gray too
-                    className={`absolute left-0 bottom-0 w-full h-0.5 ${
-                      isDark ? "bg-gray-300" : "bg-amber-300"
-                    }`}
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </Link>
-            ))}
-            <DarkModeToggle />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className="focus-ring relative rounded-sm py-3 text-[15px] font-medium text-slate-600 transition-colors hover:text-[#087f73]"
             >
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              {({ isActive }) => (
+                <>
+                  <span className={isActive ? "text-[#087f73]" : ""}>
+                    {link.label}
+                  </span>
+                  {isActive && (
+                    <motion.span
+                      layoutId="active-navigation"
+                      className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-[#087f73]"
+                      transition={{ type: "spring", stiffness: 360, damping: 30 }}
+                    />
+                  )}
+                </>
               )}
-            </svg>
-          </button>
-        </div>
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
+            </NavLink>
+          ))}
+        </nav>
+
+        <a
+          href="tel:+251936640980"
+          className="focus-ring hidden h-12 items-center gap-2 rounded-xl bg-[#087f73] px-5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(8,127,115,0.2)] transition hover:-translate-y-0.5 hover:bg-[#06675e] lg:inline-flex"
+        >
+          <Phone className="h-4 w-4" aria-hidden="true" />
+          Contact us
+        </a>
+
+        <button
+          type="button"
+          className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-[#10243e] lg:hidden"
+          onClick={() => setIsOpen((value) => !value)}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.nav
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden mt-4 space-y-4 pb-4"
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-slate-100 bg-white lg:hidden"
+            aria-label="Mobile"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`block py-2 px-4 rounded-lg transition-colors ${
-                  location.pathname === link.path
-                    ? isDark
-                      ? "bg-gray-700 text-gray-200" // Set active mobile background to dark gray
-                      : "bg-amber-800 text-white" // Keep active mobile background amber in light theme
-                    : `text-white ${
-                        isDark
-                          ? "hover:bg-gray-400/50"
-                          : "hover:bg-amber-400/50"
-                      }`
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
+            <div className="page-shell space-y-1 py-4">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-4 py-3.5 text-[15px] font-medium transition ${
+                      isActive
+                        ? "bg-[#eef7f5] text-[#087f73]"
+                        : "text-slate-700 hover:bg-slate-50"
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+              <a
+                href="tel:+251936640980"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#087f73] px-5 py-3.5 text-sm font-semibold text-white"
               >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-2 ">
-              <DarkModeToggle />
+                <Phone className="h-4 w-4" /> Call emergency
+              </a>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
-      </div>
-    </motion.nav>
+      </AnimatePresence>
+    </header>
   );
 }
 
 export default Navbar;
-
-// import { useState, useEffect } from "react";
-// import { Link, useLocation } from "react-router-dom";
-// import { motion } from "framer-motion";
-// import DarkModeToggle from "./DarkModeToggle";
-// import drLogo1 from "../assets/drLogo1.jpg";
-// import { useTheme } from "../context/ThemeContext";
-
-// function Navbar() {
-//   const { isDark } = useTheme();
-//   const [isScrolled, setIsScrolled] = useState(false);
-//   const location = useLocation();
-//   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setIsScrolled(window.scrollY > 10);
-//     };
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
-
-//   const navLinks = [
-//     { path: "/", name: "Home" },
-//     { path: "/services", name: "Services" },
-//     { path: "/doctors", name: "Our Doctors" },
-//     { path: "/contact", name: "Contact" },
-//   ];
-
-//   return (
-//     <motion.nav
-//       initial={{ y: -100 }}
-//       animate={{ y: 0 }}
-//       transition={{ duration: 0.5 }}
-//       className={`fixed w-full z-50 transition-all duration-300 ${
-//         isScrolled
-//           ? isDark
-//             ? "bg-gray-900/90 shadow-lg"
-//             : "bg-amber-950/90 shadow-lg"
-//           : isDark
-//           ? "bg-gray-900"
-//           : "bg-amber-950"
-//       }`}
-//     >
-//       <div className="container mx-auto px-3 py-3">
-//         <div className="flex justify-between items-center">
-//           <Link to="/" className="flex items-center space-x-2">
-//             <motion.img
-//               src={drLogo1}
-//               alt="Dr.Saba Medium Clinic Logo"
-//               className="h-14 rounded-xl"
-//               whileHover={{ rotate: 5 }}
-//               transition={{ type: "spring", stiffness: 300 }}
-//             />
-//             {/* Make the font size responsive */}
-//             <motion.span
-//               className="text-lg md:text-xl lg:text-2xl font-bold text-white"
-//               whileHover={{ scale: 1.05 }}
-//             >
-//               Dr.Saba Medium Clinic
-//             </motion.span>
-//           </Link>
-
-//           {/* Desktop Navigation */}
-//           <div className="hidden md:flex items-center space-x-8">
-//             {navLinks.map((link) => (
-//               <Link
-//                 key={link.path}
-//                 to={link.path}
-//                 className={`relative text-base md:text-lg font-medium transition-colors ${
-//                   location.pathname === link.path
-//                     ? "text-amber-300"
-//                     : "text-white hover:text-amber-200"
-//                 }`}
-//               >
-//                 {link.name}
-//                 {location.pathname === link.path && (
-//                   <motion.span
-//                     layoutId="navUnderline"
-//                     className="absolute left-0 bottom-0 w-full h-0.5 bg-amber-300"
-//                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-//                   />
-//                 )}
-//               </Link>
-//             ))}
-//             <DarkModeToggle />
-//           </div>
-
-//           {/* Mobile Menu Button */}
-//           <button
-//             className="md:hidden text-white focus:outline-none"
-//             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-//           >
-//             <svg
-//               className="w-6 h-6"
-//               fill="none"
-//               stroke="currentColor"
-//               viewBox="0 0 24 24"
-//             >
-//               {mobileMenuOpen ? (
-//                 <path
-//                   strokeLinecap="round"
-//                   strokeLinejoin="round"
-//                   strokeWidth={2}
-//                   d="M6 18L18 6M6 6l12 12"
-//                 />
-//               ) : (
-//                 <path
-//                   strokeLinecap="round"
-//                   strokeLinejoin="round"
-//                   strokeWidth={2}
-//                   d="M4 6h16M4 12h16M4 18h16"
-//                 />
-//               )}
-//             </svg>
-//           </button>
-//         </div>
-//         {/* Mobile Menu */}
-//         {mobileMenuOpen && (
-//           <motion.div
-//             key="mobile-menu"
-//             initial={{ opacity: 0, height: 0 }}
-//             animate={{ opacity: 1, height: "auto" }}
-//             exit={{ opacity: 0, height: 0 }}
-//             transition={{ duration: 0.3 }}
-//             className="md:hidden mt-4 space-y-4 pb-4"
-//           >
-//             {navLinks.map((link) => (
-//               <Link
-//                 key={link.path}
-//                 to={link.path}
-//                 className={`block py-2 px-4 rounded-lg transition-colors ${
-//                   location.pathname === link.path
-//                     ? "bg-amber-800 text-white"
-//                     : "text-white hover:bg-amber-400/50"
-//                 }`}
-//                 onClick={() => setMobileMenuOpen(false)}
-//               >
-//                 {link.name}
-//               </Link>
-//             ))}
-//             <div className="pt-2 ">
-//               <DarkModeToggle />
-//             </div>
-//           </motion.div>
-//         )}
-//       </div>
-//     </motion.nav>
-//   );
-// }
-
-// export default Navbar;
