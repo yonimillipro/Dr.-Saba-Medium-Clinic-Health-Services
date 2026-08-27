@@ -8,6 +8,15 @@
       content="Doctor Saba Medical Center provides comprehensive medical care, diagnostics, and 24/7 emergency support in Addis Ababa."
     />
     <meta name="theme-color" content="#ffffff" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("clinic-theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = savedTheme || (prefersDark ? "dark" : "light");
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

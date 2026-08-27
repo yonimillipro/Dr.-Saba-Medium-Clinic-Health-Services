@@ -48,7 +48,7 @@ const reveal = {
 
 function Contact() {
   return (
-    <div className="overflow-hidden bg-white pb-28 pt-[132px] sm:pt-[160px]">
+    <div className="theme-page overflow-hidden pb-28 pt-[132px] sm:pt-[160px]">
       <section className="page-shell">
         <motion.div
           initial="hidden"
@@ -58,14 +58,14 @@ function Contact() {
         >
           <motion.div variants={reveal}>
             <div className="eyeline-rule mb-8" />
-            <h1 className="font-display text-[clamp(4rem,9vw,8rem)] leading-[0.88] tracking-[-0.05em] text-[#10243e]">
+            <h1 className="theme-heading font-display text-[clamp(4rem,9vw,8rem)] leading-[0.88] tracking-[-0.05em]">
               Here when
               <br />
               you need us.
             </h1>
           </motion.div>
           <motion.div variants={reveal} className="lg:pb-2">
-            <p className="max-w-[520px] text-lg leading-8 text-slate-600">
+            <p className="theme-copy max-w-[520px] text-lg leading-8">
               Visit our Summit location or call our team anytime. Emergency care
               is available 24/7.
             </p>
@@ -78,7 +78,7 @@ function Contact() {
               </a>
               <a
                 href="mailto:saba2009welde@gmail.com"
-                className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl border border-[#087f73] px-6 text-sm font-semibold text-[#087f73] hover:bg-[#eef7f5]"
+                className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl border border-[#087f73] px-6 text-sm font-semibold text-[#087f73] hover:bg-[#eef7f5] dark:text-teal-300 dark:hover:bg-white/5"
               >
                 <Mail className="h-4 w-4" /> Send an email
               </a>
@@ -92,7 +92,7 @@ function Contact() {
           initial="hidden"
           animate="visible"
           variants={{ visible: { transition: { staggerChildren: 0.09, delayChildren: 0.2 } } }}
-          className="border-t border-slate-200"
+          className="theme-border border-t"
         >
           {contactRows.map((row) => {
             const Icon = row.icon;
@@ -100,13 +100,13 @@ function Contact() {
               <motion.div
                 key={row.label}
                 variants={reveal}
-                className="grid grid-cols-[48px_1fr] gap-4 border-b border-slate-200 py-5 sm:grid-cols-[52px_150px_1fr] sm:items-center"
+                className="theme-border grid grid-cols-[48px_1fr] gap-4 border-b py-5 sm:grid-cols-[52px_150px_1fr] sm:items-center"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-full bg-[#eef7f5] text-[#087f73]">
+                <span className="theme-icon-surface grid h-11 w-11 place-items-center rounded-full">
                   <Icon className="h-5 w-5 stroke-[1.6]" />
                 </span>
-                <p className="text-sm font-semibold text-[#087f73]">{row.label}</p>
-                <p className="col-start-2 text-sm leading-6 text-slate-600 sm:col-start-auto">
+                <p className="text-sm font-semibold text-[#087f73] dark:text-teal-300">{row.label}</p>
+                <p className="theme-copy col-start-2 text-sm leading-6 sm:col-start-auto">
                   {row.content}
                 </p>
               </motion.div>
