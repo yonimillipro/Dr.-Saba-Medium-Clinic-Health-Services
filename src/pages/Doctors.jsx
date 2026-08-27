@@ -70,7 +70,7 @@ function Doctors() {
           initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 28px)" }}
           animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 28px)" }}
           transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="theme-soft relative overflow-hidden rounded-[28px]"
+          className="mobile-no-clip theme-soft relative overflow-hidden rounded-[28px]"
         >
           <img
             src={teamImage}

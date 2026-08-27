@@ -10,6 +10,10 @@
     <meta name="theme-color" content="#ffffff" />
     <script>
       (() => {
+        if ("scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+        }
+
         const savedTheme = localStorage.getItem("clinic-theme");
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         const theme = savedTheme || (prefersDark ? "dark" : "light");

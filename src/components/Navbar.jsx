@@ -36,17 +36,35 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 12);
+    let animationFrame = 0;
+
+    const updateScrollState = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled((current) =>
+        current ? scrollPosition > 6 : scrollPosition > 24,
+      );
+      animationFrame = 0;
+    };
+
+    const onScroll = () => {
+      if (animationFrame === 0) {
+        animationFrame = window.requestAnimationFrame(updateScrollState);
+      }
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   useEffect(() => setIsOpen(false), [location.pathname]);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+      className={`site-header fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ${
         isScrolled
           ? "border-slate-200/80 bg-white/95 shadow-[0_10px_35px_rgba(16,36,62,0.06)] backdrop-blur-xl dark:border-white/10 dark:bg-[#071625]/95 dark:shadow-[0_10px_35px_rgba(0,0,0,0.24)]"
           : "border-transparent bg-white/90 dark:bg-[#071625]/90"
@@ -81,7 +99,7 @@ function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2.5">
-          <ThemeToggle className="hidden sm:inline-flex" />
+          <ThemeToggle />
 
           <a
             href="tel:+251936640980"
@@ -131,9 +149,6 @@ function Navbar() {
                   {link.label}
                 </NavLink>
               ))}
-              <div className="px-1 pb-1 pt-3 sm:hidden">
-                <ThemeToggle showLabel />
-              </div>
               <a
                 href="tel:+251936640980"
                 className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#087f73] px-5 py-3.5 text-sm font-semibold text-white"

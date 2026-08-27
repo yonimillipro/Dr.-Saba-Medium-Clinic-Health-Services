@@ -32,7 +32,7 @@ function ClinicGallery() {
               transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
             },
           }}
-          className={`group relative overflow-hidden rounded-[20px] ${
+          className={`mobile-no-clip group relative overflow-hidden rounded-[20px] ${
             index === 0 ? "sm:col-span-2 lg:col-span-1" : ""
           }`}
         >
