@@ -1,163 +1,54 @@
 import { motion } from "framer-motion";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
+import receptionImage from "../assets/clinicIMG/re.jpg";
+import equipmentImage from "../assets/clinicIMG/Med-equ.jpg";
+import laboratoryImage from "../assets/clinicIMG/lab1.jpg";
+import examImage from "../assets/clinicIMG/Exa.jpg";
 
 const clinicImages = [
-  {
-    id: 1,
-    src: "clinicIMG/re.jpg",
-    alt: "Modern clinic reception",
-    title: "Reception Area",
-  },
-  {
-    id: 2,
-    src: "/clinicIMG/Med-equ.jpg",
-    alt: "Medical equipment  room",
-    title: "Medical equipment Room",
-  },
-  {
-    id: 3,
-    src: "clinicIMG/lab1.jpg",
-    alt: "Medical lab equipment",
-    title: "Laboratory",
-  },
-  {
-    id: 4,
-    src: "clinicIMG/Exa.jpg",
-    alt: "Waiting area for patients",
-    title: "Waiting Lounge",
-  },
-  {
-    id: 5,
-    src: "clinicIMG/nurse.jpg",
-    alt: "Medical consultation room",
-    title: "Consultation Room",
-  },
-  {
-    id: 6,
-    src: "clinicIMG/med-micro.jpg",
-    alt: "Modern medical equipments",
-    title: "Medical Equipments",
-  },
+  { src: receptionImage, alt: "Clinic reception area", title: "Reception" },
+  { src: examImage, alt: "Patient examination area", title: "Examination" },
+  { src: equipmentImage, alt: "Clinic laboratory room", title: "Laboratory" },
+  { src: laboratoryImage, alt: "Diagnostic laboratory equipment", title: "Diagnostics" },
 ];
 
-const ClinicGallery = () => {
+function ClinicGallery() {
   return (
     <motion.div
-      variants={containerVariants}
       initial="hidden"
-      animate="visible"
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+      className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
     >
-      {clinicImages.map((image) => (
-        <motion.div
-          key={image.id}
-          variants={itemVariants}
-          whileHover={{ scale: 1.03 }}
-          className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
+      {clinicImages.map((image, index) => (
+        <motion.figure
+          key={image.title}
+          variants={{
+            hidden: { opacity: 0, y: 30, clipPath: "inset(0 0 100% 0 round 20px)" },
+            visible: {
+              opacity: 1,
+              y: 0,
+              clipPath: "inset(0 0 0% 0 round 20px)",
+              transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            },
+          }}
+          className={`group relative overflow-hidden rounded-[20px] ${
+            index === 0 ? "sm:col-span-2 lg:col-span-1" : ""
+          }`}
         >
-          <div className="relative group">
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end">
-              <h3 className="text-white font-semibold text-xl p-4 w-full">
-                {image.title}
-              </h3>
-            </div>
-          </div>
-        </motion.div>
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="aspect-[0.88/1] w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+            loading="lazy"
+          />
+          <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#08213d]/90 to-transparent px-5 pb-5 pt-12 text-sm font-medium text-white">
+            {image.title}
+          </figcaption>
+        </motion.figure>
       ))}
     </motion.div>
   );
-};
+}
 
 export default ClinicGallery;
-
-// const clinicImages = [
-//   {
-//     id: 1,
-//     src: "https://images.pexels.com/photos/247786/pexels-photo-247786.jpeg",
-//     alt: "Modern clinic reception",
-//     title: "Reception Area"
-//   },
-//   {
-//     id: 2,
-//     src: "https://images.pexels.com/photos/1692693/pexels-photo-1692693.jpeg",
-//     alt: "Medical examination room",
-//     title: "Examination Room"
-//   },
-//   {
-//     id: 3,
-//     src: "https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg",
-//     alt: "Medical lab equipment",
-//     title: "Laboratory"
-//   },
-//   {
-//     id: 4,
-//     src: "https://images.pexels.com/photos/305565/pexels-photo-305565.jpeg",
-//     alt: "Waiting area for patients",
-//     title: "Waiting Lounge"
-//   },
-//   {
-//     id: 5,
-//     src: "https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg",
-//     alt: "Medical consultation room",
-//     title: "Consultation Room"
-//   },
-//   {
-//     id: 6,
-//     src: "https://images.pexels.com/photos/3844581/pexels-photo-3844581.jpeg",
-//     alt: "Modern medical equipment",
-//     title: "Medical Equipment"
-//   }
-// ];
-
-// const ClinicGallery = () => {
-//   return (
-//     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//       {clinicImages.map((image) => (
-//         <div
-//           key={image.id}
-//           className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
-//         >
-//           <div className="relative group">
-//             <img
-//               src={image.src}
-//               alt={image.alt}
-//               className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
-//               loading="lazy"
-//             />
-//             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end">
-//               <h3 className="text-white font-semibold text-xl p-4 w-full">{image.title}</h3>
-//             </div>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default ClinicGallery;

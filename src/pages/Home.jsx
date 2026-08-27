@@ -1,883 +1,366 @@
-import { useState, useEffect } from "react";
 import {
-  FaUserMd,
-  FaClock,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaEnvelope,
-} from "react-icons/fa";
+  ArrowRight,
+  Baby,
+  Clock3,
+  FlaskConical,
+  Mail,
+  MapPin,
+  Phone,
+  Pill,
+  Scissors,
+  ShieldCheck,
+  Stethoscope,
+  Truck,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import ClinicGallery from "./ClinicGallery";
 import LocationMap from "./LocationMap";
-import { motion, AnimatePresence } from "framer-motion"; // ADDED AnimatePresence
+import heroImage from "../assets/clinicIMG/Med-equ.jpg";
+import storyImage from "../assets/clinicIMG/lab1.jpg";
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
+const services = [
+  {
+    title: "General consultation",
+    copy: "Everyday care for adults and children.",
+    icon: Stethoscope,
+  },
+  {
+    title: "Laboratory diagnostics",
+    copy: "Practical testing to support clear decisions.",
+    icon: FlaskConical,
+  },
+  {
+    title: "Emergency care",
+    copy: "Urgent medical support, available 24/7.",
+    icon: Truck,
+  },
+  {
+    title: "Maternal & child health",
+    copy: "Attentive care for mothers and growing families.",
+    icon: Baby,
+  },
+  {
+    title: "Minor procedures",
+    copy: "Safe outpatient procedures with attentive follow-up.",
+    icon: Scissors,
+  },
+  {
+    title: "Pharmacy support",
+    copy: "Medication guidance as part of coordinated care.",
+    icon: Pill,
+  },
+];
+
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
     y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
-const bounceVariants = {
-  hover: {
-    y: -5,
-    transition: {
-      type: "spring",
-      stiffness: 500,
-      damping: 10,
-    },
-  },
-};
-
-const scaleVariants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      duration: 0.3,
-    },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 function Home() {
-  const iconColorClass = "text-amber-900 dark:text-white text-5xl mb-4";
-  const contactIconColorClass = "text-amber-900 dark:text-white text-xl mt-1";
-  const otherBranchIconColorClass =
-    "text-amber-900 dark:text-white text-xl mr-3 mt-1";
-  const buttonTextColorClass = "text-white dark:text-black";
-  const buttonBgColorClass = "bg-amber-900 dark:bg-white";
-  const buttonHoverBgColorClass = "hover:bg-amber-700 dark:hover:bg-gray-300";
-  const headerTextColorClass = "text-amber-900 dark:text-white"; // Unified header color class
-
-  // NEW: Define the unified gradient background class
-  const unifiedGradientBg =
-    "bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900";
-
-  // DYNAMIC TEXT LOGIC
-  const dynamicTexts = [
-    "Providing Quality Healthcare Services Since 1995 with compassion, expertise, and modern care.",
-    "Expert medical professionals available 24/7 for emergency and specialized treatments.",
-    "Your health is our priority. Visit us for comprehensive and patient-centered medical services.",
-    "A state-of-the-art facility equipped to handle all your family's health needs, day or night.",
-  ];
-
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
-  useEffect(() => {
-    // MODIFIED DURATION: 3500ms (3.5 seconds)
-    const interval = setInterval(() => {
-      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % dynamicTexts.length);
-    }, 3500); // Change text every 3.5 seconds
-
-    return () => clearInterval(interval);
-  }, [dynamicTexts.length]);
-
   return (
-    // APPLY unifiedGradientBg to the main container
-    <div className={`min-h-screen font-sans ${unifiedGradientBg}`}>
-      {/* Hero Section - UPDATED BACKGROUND */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className={`py-32 px-4 sm:px-6 lg:px-8 text-center text-gray-900 dark:text-white`}
+    <div className="overflow-hidden bg-white">
+      <section
+        className="relative flex min-h-[880px] items-center pb-20 pt-[132px] sm:min-h-[920px] sm:pt-[150px] lg:min-h-[760px] lg:pb-16 lg:pt-[142px]"
       >
-        <motion.h1
-          whileHover="hover"
-          variants={bounceVariants}
-          className={` my-5 text-4xl sm:text-5xl font-bold m-6 ${headerTextColorClass}`}
-        >
-          Welcome to Dr.Saba Medium Clinic
-        </motion.h1>
-
-        {/* DYNAMIC TEXT IMPLEMENTATION */}
-        <div className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto h-16 sm:h-auto flex items-center justify-center overflow-hidden">
-          <AnimatePresence mode="wait">
+        <div className="page-shell grid items-center gap-14 lg:grid-cols-[0.98fr_1.02fr] lg:gap-12">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+            }}
+            className="relative z-10"
+          >
+            <motion.h1
+              variants={reveal}
+              className="font-display max-w-[680px] text-[clamp(3.5rem,5.7vw,5.35rem)] leading-[0.94] tracking-[-0.045em] text-[#10243e]"
+            >
+              Modern care.
+              <br />
+              <span className="lg:whitespace-nowrap">Human attention.</span>
+            </motion.h1>
             <motion.p
-              key={currentTextIndex} // Key forces re-render and animation when index changes
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className=" max-w-[700px] text-center"
+              variants={reveal}
+              className="mt-7 max-w-[610px] text-lg leading-8 text-slate-600 sm:text-xl"
             >
-              {dynamicTexts[currentTextIndex]}
+              Comprehensive medical care, diagnostics, and 24/7 emergency
+              support—delivered with clarity, compassion, and expertise.
             </motion.p>
-          </AnimatePresence>
-        </div>
-      </motion.section>
-
-      {/* Features - UPDATED BACKGROUND */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={containerVariants}
-        className="text-gray-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8"
-      >
-        <motion.div
-          variants={itemVariants}
-          className="max-w-6xl mx-auto text-center mb-12"
-        >
-          <motion.h2
-            whileHover="hover"
-            variants={bounceVariants}
-            className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
-          >
-            What We Offer
-          </motion.h2>
-          <motion.p
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-          >
-            At Dr.Saba Medium Clinic, our mission is to deliver expert,
-            compassionate, and round-the-clock healthcare.
-          </motion.p>
-        </motion.div>
-        <motion.div
-          variants={containerVariants}
-          className="max-w-6xl mx-auto grid gap-8 grid-cols-1 md:grid-cols-3"
-        >
-          {[
-            {
-              icon: <FaUserMd className={iconColorClass} />,
-              title: "Expert Doctors",
-              desc: "Access to certified and experienced medical professionals.",
-            },
-            {
-              icon: <FaClock className={iconColorClass} />,
-              title: "24/7 Availability",
-              desc: "Emergency services and care available around the clock.",
-            },
-            {
-              icon: <FaEnvelope className={iconColorClass} />,
-              title: "Quick Communication",
-              desc: "Easily reach out to us via phone or email for support.",
-            },
-          ].map((item, index) => (
             <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover="hover"
-              className="rounded-xl p-8 shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1
-        bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
+              variants={reveal}
+              className="mt-9 flex flex-col gap-3 sm:flex-row"
             >
-              <div className="flex justify-center align-center mb-4">
-                {item.icon}
-              </div>
-              <motion.h3
-                whileHover="hover"
-                variants={bounceVariants}
-                className={`flex justify-center align-center text-xl font-semibold mb-2 ${headerTextColorClass}`}
+              <Link
+                to="/services"
+                className="focus-ring inline-flex min-h-14 items-center justify-center gap-3 rounded-xl bg-[#087f73] px-6 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(8,127,115,0.2)] transition hover:-translate-y-0.5 hover:bg-[#06675e]"
               >
-                {item.title}
-              </motion.h3>
-              <motion.p
-                whileHover={{ scale: 1.02 }}
-                className="text-gray-600 dark:text-gray-300"
+                Explore our services <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="tel:+251936640980"
+                className="focus-ring inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-[#087f73] px-6 text-sm font-semibold text-[#087f73] transition hover:bg-[#eef7f5]"
               >
-                {item.desc}
-              </motion.p>
+                <Phone className="h-4 w-4" /> Call emergency
+              </a>
             </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
+            <motion.div variants={reveal} className="mt-12">
+              <div className="eyeline-rule mb-7" />
+              <div className="flex flex-col gap-5 text-sm text-slate-600 sm:flex-row sm:items-center sm:gap-7">
+                <span className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-[#eef7f5] text-[#087f73]">
+                    <ShieldCheck className="h-4 w-4" />
+                  </span>
+                  Serving our community since 1995
+                </span>
+                <span className="hidden h-7 w-px bg-slate-200 sm:block" />
+                <span className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-[#eef7f5] text-[#087f73]">
+                    <Clock3 className="h-4 w-4" />
+                  </span>
+                  Open 24 hours · 7 days a week
+                </span>
+              </div>
+            </motion.div>
+          </motion.div>
 
-      {/* Clinic Gallery Section - UPDATED BACKGROUND */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h2
-            whileHover="hover"
-            variants={bounceVariants}
-            className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97, x: 34 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="relative lg:-mr-10"
           >
-            Our Clinic
-          </motion.h2>
-          <motion.p
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto"
+            <motion.div className="relative overflow-hidden rounded-[30px] bg-[#eef7f5] shadow-[0_30px_70px_rgba(16,36,62,0.15)]">
+              <img
+                src={heroImage}
+                alt="Diagnostic laboratory at Doctor Saba Medical Center"
+                className="aspect-[1.12/1] w-full object-cover sm:aspect-[1.22/1]"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-24 sm:py-32">
+        <div className="page-shell">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={reveal}
+            className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]"
           >
-            Take a virtual tour of our modern facility equipped with
-            state-of-the-art medical equipment and comfortable amenities for
-            patients.
-          </motion.p>
+            <div>
+              <div className="eyeline-rule mb-7" />
+              <h2 className="font-display max-w-[440px] text-5xl leading-[0.98] tracking-[-0.035em] text-[#10243e] sm:text-6xl">
+                Care for every stage of life
+              </h2>
+              <p className="mt-6 max-w-[420px] leading-7 text-slate-600">
+                From everyday check-ups to urgent support, our team brings
+                essential services together under one roof.
+              </p>
+              <Link
+                to="/services"
+                className="focus-ring mt-8 inline-flex items-center gap-3 rounded-md border-b border-[#087f73] pb-1.5 text-sm font-semibold text-[#087f73]"
+              >
+                View all services <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.09 } },
+              }}
+              className="grid gap-x-10 md:grid-cols-2"
+            >
+              {services.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <motion.div
+                    key={service.title}
+                    variants={reveal}
+                    className="group flex items-center gap-5 border-b border-slate-200 py-6"
+                  >
+                    <Icon
+                      className="h-7 w-7 shrink-0 stroke-[1.5] text-[#087f73]"
+                      aria-hidden="true"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-2xl leading-tight text-[#10243e]">
+                        {service.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-500">
+                        {service.copy}
+                      </p>
+                    </div>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-[#d5a52e] transition-transform group-hover:translate-x-1" />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-[#eef7f5] py-20 sm:py-28">
+        <div className="page-shell grid items-center gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="eyeline-rule mb-7" />
+            <h2 className="font-display max-w-[470px] text-5xl leading-[1.02] tracking-[-0.035em] text-[#087f73] sm:text-6xl">
+              Care you can feel.
+              <br />
+              Standards you can trust.
+            </h2>
+            <p className="mt-7 max-w-[470px] text-lg leading-8 text-slate-600">
+              We combine experienced professionals, clear communication, and a
+              practical approach to every patient&apos;s needs.
+            </p>
+            <Link
+              to="/doctors"
+              className="focus-ring mt-8 inline-flex min-h-[52px] items-center gap-3 rounded-xl bg-[#087f73] px-6 text-sm font-semibold text-white shadow-[0_16px_32px_rgba(8,127,115,0.18)] transition hover:-translate-y-0.5 hover:bg-[#06675e]"
+            >
+              Meet our doctors <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 28px)" }}
+            whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 28px)" }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden rounded-[28px] shadow-[0_26px_60px_rgba(16,36,62,0.16)]"
+          >
+            <img
+              src={storyImage}
+              alt="The clinic laboratory and diagnostic equipment"
+              className="aspect-[1.35/1] w-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-[#08213d] py-24 text-white sm:py-28">
+        <div className="page-shell">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65 }}
+            className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"
+          >
+            <div>
+              <div className="eyeline-rule mb-6" />
+              <h2 className="font-display text-5xl tracking-[-0.03em] sm:text-6xl">
+                Inside our clinic
+              </h2>
+            </div>
+            <p className="max-w-[440px] leading-7 text-slate-300">
+              A real look at the spaces, equipment, and people supporting your
+              care at Doctor Saba Medical Center.
+            </p>
+          </motion.div>
           <ClinicGallery />
         </div>
-      </motion.section>
+      </section>
 
-      {/* About Section - UPDATED BACKGROUND */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="py-20 px-4 sm:px-6 lg:px-8  text-gray-900 dark:text-white"
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            whileHover="hover"
-            variants={bounceVariants}
-            className={`text-3xl font-bold mb-6 ${headerTextColorClass}`}
-          >
-            Why Choose Us?
-          </motion.h2>
-          <motion.p
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300 mb-4"
-          >
-            At Dr.Saba Medium Clinic, we are committed to providing the highest
-            quality medical care to our patients. Our state-of-the-art facility
-            and experienced medical professionals ensure the best treatment and
-            care.
-          </motion.p>
-          <motion.p
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300"
-          >
-            We offer a wide range of medical services, from routine check-ups to
-            specialized treatments. Our patient-centered approach means we take
-            the time to listen to your concerns and develop personalized
-            treatment plans.
-          </motion.p>
-        </div>
-      </motion.section>
-
-      {/* Location Section - UPDATED BACKGROUND */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-      >
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            variants={itemVariants}
-            whileHover="hover"
-            className={`text-3xl font-bold text-center mb-4 ${headerTextColorClass}`}
-          >
-            Find Us
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto"
-          >
-            We are conveniently located in the heart of the city, easily
-            accessible by public transportation.
-          </motion.p>
+      <section className="py-24 sm:py-32">
+        <div className="page-shell grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
           <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-8 text-gray-900 dark:text-white"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-90px" }}
+            transition={{ duration: 0.65 }}
           >
-            <motion.div variants={itemVariants} className="lg:col-span-3">
-              <LocationMap />
-            </motion.div>
-            <motion.div
-              variants={itemVariants}
-              whileHover="hover"
-              className="lg:col-span-2 rounded-xl p-8 shadow-xl dark:shadow-2xl bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-            >
-              <motion.h3
-                whileHover="hover"
-                variants={bounceVariants}
-                className={`text-2xl font-semibold mb-6 ${headerTextColorClass}`}
-              >
-                Contact Information
-              </motion.h3>
-              <div className="space-y-4">
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="flex items-start gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-                >
-                  <FaMapMarkerAlt className={contactIconColorClass} />
-                  <strong className="font-semibold">Location:</strong>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Summit 20 meter, next to AJORA MCH CENTER.
+            <div className="eyeline-rule mb-7" />
+            <h2 className="font-display text-5xl leading-[0.98] tracking-[-0.035em] text-[#10243e] sm:text-6xl">
+              Here when you need us
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              Visit our Summit location or call our team anytime. Emergency care
+              is available 24/7.
+            </p>
+
+            <div className="mt-9 divide-y divide-slate-200 border-y border-slate-200">
+              <div className="flex gap-4 py-5">
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#087f73]" />
+                <div>
+                  <p className="font-semibold text-[#087f73]">Summit clinic</p>
+                  <p className="mt-1 leading-6 text-slate-600">
+                    Summit 20 meter, next to AJORA MCH Center
                   </p>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="flex items-center gap-2 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-                >
-                  <FaPhone className={contactIconColorClass} />
-
-                  <strong className="font-semibold">Phone:</strong>
-                  <a
-                    href="tel:+251936640980"
-                    className="block hover:underline text-gray-700 dark:text-gray-300"
-                  >
-                    (+251) 936640980
-                  </a>
-                  <span className="text-gray-700 dark:text-gray-300">or</span>
-                  <a
-                    href="tel:+251970333383"
-                    className="block hover:underline text-gray-700 dark:text-gray-300"
-                  >
-                    (+251) 970333383
-                  </a>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  className="flex items-center gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-                >
-                  <FaEnvelope className={contactIconColorClass} />
-                  <strong className="font-semibold">Email:</strong>
-                  <a
-                    href="mailto:saba2009welde@gmail.com"
-                    className="block hover:underline text-gray-700 dark:text-gray-300"
-                  >
-                    saba2009welde@gmail.com
-                  </a>
-                </motion.div>
+                </div>
               </div>
-
-              <div className="mt-8">
-                <motion.h4
-                  whileHover="hover"
-                  variants={bounceVariants}
-                  className={`font-semibold mb-2 ${headerTextColorClass}`}
-                >
-                  Opening Hours:
-                </motion.h4>
-                <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                  <motion.li whileHover={{ x: 5 }}>
-                    Monday - Sunday: 24 Hours
-                  </motion.li>
-                  <motion.li whileHover={{ x: 5 }} className="font-semibold">
-                    Emergency: 24/7
-                  </motion.li>
-                </ul>
+              <div className="flex gap-4 py-5">
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#087f73]" />
+                <div>
+                  <p className="font-semibold text-[#087f73]">Ayat branch</p>
+                  <p className="mt-1 leading-6 text-slate-600">
+                    Behind Ayat Adebabay Station
+                  </p>
+                </div>
               </div>
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                // href="https://www.google.com/maps/place/Dr.Saba+Medium+Clinic"
-                href="https://www.google.com/maps/place/Dr.+Saba+Medium+Clinic/@9.0138813,38.8519143,15z/data=!4m6!3m5!1s0x164b9b8cc6cddcb7:0x8fee929252dcac0b!8m2!3d9.0145092!4d38.8529577!16s%2Fg%2F11h_tcn80t?entry=ttu&g_ep=EgoyMDI1MDgwMy4wIKXMDSoASAFQAw%3D%3D"
+              <div className="flex gap-4 py-5">
+                <Phone className="mt-1 h-5 w-5 shrink-0 text-[#087f73]" />
+                <div className="space-y-1 text-slate-600">
+                  <a href="tel:+251936640980" className="block hover:text-[#087f73]">
+                    (+251) 936 640 980
+                  </a>
+                  <a href="tel:+251970333383" className="block hover:text-[#087f73]">
+                    (+251) 970 333 383
+                  </a>
+                </div>
+              </div>
+              <a
+                href="mailto:saba2009welde@gmail.com"
+                className="flex gap-4 py-5 text-slate-600 hover:text-[#087f73]"
+              >
+                <Mail className="mt-1 h-5 w-5 shrink-0 text-[#087f73]" />
+                saba2009welde@gmail.com
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="https://www.google.com/maps/place/Dr.+Saba+Medium+Clinic/@9.0145092,38.8529577,15z"
                 target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-8 inline-block ${buttonBgColorClass} ${buttonTextColorClass} px-6 py-2 rounded-lg ${buttonHoverBgColorClass} transition w-full text-center`}
+                rel="noreferrer"
+                className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl bg-[#087f73] px-6 text-sm font-semibold text-white transition hover:bg-[#06675e]"
               >
-                Get Directions
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Other Branch Section - UPDATED BACKGROUND */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-      >
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            whileHover="hover"
-            variants={bounceVariants}
-            className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
-          >
-            Other Branch
-          </motion.h2>
-          <motion.p
-            whileHover={{ scale: 1.02 }}
-            className="text-gray-600 dark:text-gray-300 mb-12 max-w-xl mx-auto"
-          >
-            Visit our additional location providing the same exceptional care.
-          </motion.p>
-          <motion.div
-            whileHover="hover"
-            variants={scaleVariants}
-            className="rounded-2xl shadow-xl dark:shadow-2xl p-8 text-left max-w-2xl mx-auto bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-          >
-            <motion.h3
-              whileHover="hover"
-              variants={bounceVariants}
-              className={`text-2xl font-semibold mb-4 ${headerTextColorClass}`}
-            >
-              Uptown Branch
-            </motion.h3>
-            <div className="space-y-4">
-              <motion.p
-                whileHover={{ x: 5 }}
-                className="text-gray-700 dark:text-gray-300 flex items-start"
+                <MapPin className="h-4 w-4" /> Get directions
+              </a>
+              <a
+                href="tel:+251936640980"
+                className="focus-ring inline-flex min-h-[52px] items-center justify-center gap-3 rounded-xl border border-[#087f73] px-6 text-sm font-semibold text-[#087f73] hover:bg-[#eef7f5]"
               >
-                <FaMapMarkerAlt className={otherBranchIconColorClass} />
-                behind Ayat Adebabay Station.
-              </motion.p>
-              <motion.div
-                whileHover={{ x: 5 }}
-                className="flex items-center gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-              >
-                <FaPhone className={contactIconColorClass} />
-                <p className="text-gray-700 dark:text-gray-300 text-center">
-                  (+251)936640980 <br />
-                  (+251)970333383
-                </p>
-              </motion.div>
-              <motion.p
-                whileHover={{ x: 5 }}
-                className="text-gray-700 dark:text-gray-300 flex items-center"
-              >
-                <FaEnvelope className={otherBranchIconColorClass} />
-                sabawelde561@gmail.com
-              </motion.p>
+                <Phone className="h-4 w-4" /> Call now
+              </a>
             </div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, clipPath: "inset(0 100% 0 0 round 28px)" }}
+            whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0 round 28px)" }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <LocationMap />
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 }
 
 export default Home;
-
-// // import React from "react";
-// import {
-//   FaUserMd,
-//   FaClock,
-//   FaMapMarkerAlt,
-//   FaPhone,
-//   FaEnvelope,
-// } from "react-icons/fa";
-// import ClinicGallery from "./ClinicGallery";
-// import LocationMap from "./LocationMap";
-// import { motion } from "framer-motion";
-
-// // Animation variants
-// const containerVariants = {
-//   hidden: { opacity: 0 },
-//   visible: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.2,
-//     },
-//   },
-// };
-
-// const itemVariants = {
-//   hidden: { y: 20, opacity: 0 },
-//   visible: {
-//     y: 0,
-//     opacity: 1,
-//     transition: {
-//       duration: 0.5,
-//     },
-//   },
-// };
-
-// const bounceVariants = {
-//   hover: {
-//     y: -5,
-//     transition: {
-//       type: "spring",
-//       stiffness: 500,
-//       damping: 10,
-//     },
-//   },
-// };
-
-// const scaleVariants = {
-//   hover: {
-//     scale: 1.05,
-//     transition: {
-//       duration: 0.3,
-//     },
-//   },
-// };
-
-// function Home() {
-//   const iconColorClass = "text-amber-900 dark:text-white text-5xl mb-4";
-//   const contactIconColorClass = "text-amber-900 dark:text-white text-xl mt-1";
-//   const otherBranchIconColorClass =
-//     "text-amber-900 dark:text-white text-xl mr-3 mt-1";
-//   const buttonTextColorClass = "text-white dark:text-black";
-//   const buttonBgColorClass = "bg-amber-900 dark:bg-white";
-//   const buttonHoverBgColorClass = "hover:bg-amber-700 dark:hover:bg-gray-300";
-//   const headerTextColorClass = "text-amber-900 dark:text-white"; // Unified header color class
-
-//   // NEW: Define the unified gradient background class
-//   const unifiedGradientBg =
-//     "bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900";
-
-//   return (
-//     // APPLY unifiedGradientBg to the main container
-//     <div className={`min-h-screen font-sans ${unifiedGradientBg}`}>
-//       {/* Hero Section - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial={{ opacity: 0 }}
-//         animate={{ opacity: 1 }}
-//         transition={{ duration: 0.8 }}
-//         className={`py-32 px-4 sm:px-6 lg:px-8 text-center text-gray-900 dark:text-white`}
-//       >
-//         <motion.h1
-//           whileHover="hover"
-//           variants={bounceVariants}
-//           className={` my-5 text-4xl sm:text-5xl font-bold m-6 ${headerTextColorClass}`}
-//         >
-//           Welcome to Dr.Saba Medium Clinic
-//         </motion.h1>
-//         <motion.p
-//           whileHover={{ scale: 1.03 }}
-//           className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-//         >
-//           Providing Quality Healthcare Services Since 1995 with compassion,
-//           expertise, and modern care.
-//         </motion.p>
-//       </motion.section>
-
-//       {/* Features - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial="hidden"
-//         whileInView="visible"
-//         viewport={{ once: true, margin: "-100px" }}
-//         variants={containerVariants}
-//         className="text-gray-900 dark:text-white py-20 px-4 sm:px-6 lg:px-8"
-//       >
-//         <motion.div
-//           variants={itemVariants}
-//           className="max-w-6xl mx-auto text-center mb-12"
-//         >
-//           <motion.h2
-//             whileHover="hover"
-//             variants={bounceVariants}
-//             className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
-//           >
-//             What We Offer
-//           </motion.h2>
-//           <motion.p
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-//           >
-//             At Dr.Saba Medium Clinic, our mission is to deliver expert,
-//             compassionate, and round-the-clock healthcare.
-//           </motion.p>
-//         </motion.div>
-//         <motion.div
-//           variants={containerVariants}
-//           className="max-w-6xl mx-auto grid gap-8 grid-cols-1 md:grid-cols-3"
-//         >
-//           {[
-//             {
-//               icon: <FaUserMd className={iconColorClass} />,
-//               title: "Expert Doctors",
-//               desc: "Access to certified and experienced medical professionals.",
-//             },
-//             {
-//               icon: <FaClock className={iconColorClass} />,
-//               title: "24/7 Availability",
-//               desc: "Emergency services and care available around the clock.",
-//             },
-//             {
-//               icon: <FaEnvelope className={iconColorClass} />,
-//               title: "Quick Communication",
-//               desc: "Easily reach out to us via phone or email for support.",
-//             },
-//           ].map((item, index) => (
-//             <motion.div
-//               key={index}
-//               variants={itemVariants}
-//               whileHover="hover"
-//               className="rounded-xl p-8 shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1
-//         bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//             >
-//               <div className="flex justify-center align-center mb-4">
-//                 {item.icon}
-//               </div>
-//               <motion.h3
-//                 whileHover="hover"
-//                 variants={bounceVariants}
-//                 className={`flex justify-center align-center text-xl font-semibold mb-2 ${headerTextColorClass}`}
-//               >
-//                 {item.title}
-//               </motion.h3>
-//               <motion.p
-//                 whileHover={{ scale: 1.02 }}
-//                 className="text-gray-600 dark:text-gray-300"
-//               >
-//                 {item.desc}
-//               </motion.p>
-//             </motion.div>
-//           ))}
-//         </motion.div>
-//       </motion.section>
-
-//       {/* Clinic Gallery Section - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial={{ opacity: 0, y: 50 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         viewport={{ once: true }}
-//         transition={{ duration: 0.6 }}
-//         className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-//       >
-//         <div className="max-w-6xl mx-auto text-center">
-//           <motion.h2
-//             whileHover="hover"
-//             variants={bounceVariants}
-//             className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
-//           >
-//             Our Clinic
-//           </motion.h2>
-//           <motion.p
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto"
-//           >
-//             Take a virtual tour of our modern facility equipped with
-//             state-of-the-art medical equipment and comfortable amenities for
-//             patients.
-//           </motion.p>
-//           <ClinicGallery />
-//         </div>
-//       </motion.section>
-
-//       {/* About Section - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial={{ opacity: 0 }}
-//         whileInView={{ opacity: 1 }}
-//         viewport={{ once: true }}
-//         transition={{ duration: 0.8 }}
-//         className="py-20 px-4 sm:px-6 lg:px-8  text-gray-900 dark:text-white"
-//       >
-//         <div className="max-w-4xl mx-auto text-center">
-//           <motion.h2
-//             whileHover="hover"
-//             variants={bounceVariants}
-//             className={`text-3xl font-bold mb-6 ${headerTextColorClass}`}
-//           >
-//             Why Choose Us?
-//           </motion.h2>
-//           <motion.p
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300 mb-4"
-//           >
-//             At Dr.Saba Medium Clinic, we are committed to providing the highest
-//             quality medical care to our patients. Our state-of-the-art facility
-//             and experienced medical professionals ensure the best treatment and
-//             care.
-//           </motion.p>
-//           <motion.p
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300"
-//           >
-//             We offer a wide range of medical services, from routine check-ups to
-//             specialized treatments. Our patient-centered approach means we take
-//             the time to listen to your concerns and develop personalized
-//             treatment plans.
-//           </motion.p>
-//         </div>
-//       </motion.section>
-
-//       {/* Location Section - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial="hidden"
-//         whileInView="visible"
-//         viewport={{ once: true }}
-//         variants={containerVariants}
-//         className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-//       >
-//         <div className="max-w-6xl mx-auto">
-//           <motion.h2
-//             variants={itemVariants}
-//             whileHover="hover"
-//             className={`text-3xl font-bold text-center mb-4 ${headerTextColorClass}`}
-//           >
-//             Find Us
-//           </motion.h2>
-//           <motion.p
-//             variants={itemVariants}
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto"
-//           >
-//             We are conveniently located in the heart of the city, easily
-//             accessible by public transportation.
-//           </motion.p>
-//           <motion.div
-//             variants={containerVariants}
-//             className="grid grid-cols-1 lg:grid-cols-5 gap-8 text-gray-900 dark:text-white"
-//           >
-//             <motion.div variants={itemVariants} className="lg:col-span-3">
-//               <LocationMap />
-//             </motion.div>
-//             <motion.div
-//               variants={itemVariants}
-//               whileHover="hover"
-//               className="lg:col-span-2 rounded-xl p-8 shadow-xl dark:shadow-2xl bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//             >
-//               <motion.h3
-//                 whileHover="hover"
-//                 variants={bounceVariants}
-//                 className={`text-2xl font-semibold mb-6 ${headerTextColorClass}`}
-//               >
-//                 Contact Information
-//               </motion.h3>
-//               <div className="space-y-4">
-//                 <motion.div
-//                   whileHover={{ x: 5 }}
-//                   className="flex items-start gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//                 >
-//                   <FaMapMarkerAlt className={contactIconColorClass} />
-//                   <strong className="font-semibold">Location:</strong>
-//                   <p className="text-gray-700 dark:text-gray-300">
-//                     Summit 20 meter, next to AJORA MCH CENTER.
-//                   </p>
-//                 </motion.div>
-//                 <motion.div
-//                   whileHover={{ x: 5 }}
-//                   className="flex items-center gap-2 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//                 >
-//                   <FaPhone className={contactIconColorClass} />
-
-//                   <strong className="font-semibold">Phone:</strong>
-//                   <a
-//                     href="tel:+251936640980"
-//                     className="block hover:underline text-gray-700 dark:text-gray-300"
-//                   >
-//                     (+251) 936640980
-//                   </a>
-//                   <span className="text-gray-700 dark:text-gray-300">or</span>
-//                   <a
-//                     href="tel:+251970333383"
-//                     className="block hover:underline text-gray-700 dark:text-gray-300"
-//                   >
-//                     (+251) 970333383
-//                   </a>
-//                 </motion.div>
-
-//                 <motion.div
-//                   whileHover={{ x: 5 }}
-//                   className="flex items-center gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//                 >
-//                   <FaEnvelope className={contactIconColorClass} />
-//                   <strong className="font-semibold">Email:</strong>
-//                   <a
-//                     href="mailto:saba2009welde@gmail.com"
-//                     className="block hover:underline text-gray-700 dark:text-gray-300"
-//                   >
-//                     saba2009welde@gmail.com
-//                   </a>
-//                 </motion.div>
-//               </div>
-
-//               <div className="mt-8">
-//                 <motion.h4
-//                   whileHover="hover"
-//                   variants={bounceVariants}
-//                   className={`font-semibold mb-2 ${headerTextColorClass}`}
-//                 >
-//                   Opening Hours:
-//                 </motion.h4>
-//                 <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-//                   <motion.li whileHover={{ x: 5 }}>
-//                     Monday - Sunday: 24 Hours
-//                   </motion.li>
-//                   <motion.li whileHover={{ x: 5 }} className="font-semibold">
-//                     Emergency: 24/7
-//                   </motion.li>
-//                 </ul>
-//               </div>
-//               <motion.a
-//                 whileHover={{ scale: 1.05 }}
-//                 whileTap={{ scale: 0.95 }}
-//                 // href="https://www.google.com/maps/place/Dr.Saba+Medium+Clinic"
-//                 href="https://www.google.com/maps/place/Dr.+Saba+Medium+Clinic/@9.0138813,38.8519143,15z/data=!4m6!3m5!1s0x164b9b8cc6cddcb7:0x8fee929252dcac0b!8m2!3d9.0145092!4d38.8529577!16s%2Fg%2F11h_tcn80t?entry=ttu&g_ep=EgoyMDI1MDgwMy4wIKXMDSoASAFQAw%3D%3D"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className={`mt-8 inline-block ${buttonBgColorClass} ${buttonTextColorClass} px-6 py-2 rounded-lg ${buttonHoverBgColorClass} transition w-full text-center`}
-//               >
-//                 Get Directions
-//               </motion.a>
-//             </motion.div>
-//           </motion.div>
-//         </div>
-//       </motion.section>
-
-//       {/* Other Branch Section - UPDATED BACKGROUND */}
-//       <motion.section
-//         initial={{ opacity: 0, y: 50 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         viewport={{ once: true }}
-//         transition={{ duration: 0.6 }}
-//         className="py-20 px-4 sm:px-6 lg:px-8 text-gray-900 dark:text-white"
-//       >
-//         <div className="max-w-4xl mx-auto text-center">
-//           <motion.h2
-//             whileHover="hover"
-//             variants={bounceVariants}
-//             className={`text-3xl font-bold mb-4 ${headerTextColorClass}`}
-//           >
-//             Other Branch
-//           </motion.h2>
-//           <motion.p
-//             whileHover={{ scale: 1.02 }}
-//             className="text-gray-600 dark:text-gray-300 mb-12 max-w-xl mx-auto"
-//           >
-//             Visit our additional location providing the same exceptional care.
-//           </motion.p>
-//           <motion.div
-//             whileHover="hover"
-//             variants={scaleVariants}
-//             className="rounded-2xl shadow-xl dark:shadow-2xl p-8 text-left max-w-2xl mx-auto bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//           >
-//             <motion.h3
-//               whileHover="hover"
-//               variants={bounceVariants}
-//               className={`text-2xl font-semibold mb-4 ${headerTextColorClass}`}
-//             >
-//               Uptown Branch
-//             </motion.h3>
-//             <div className="space-y-4">
-//               <motion.p
-//                 whileHover={{ x: 5 }}
-//                 className="text-gray-700 dark:text-gray-300 flex items-start"
-//               >
-//                 <FaMapMarkerAlt className={otherBranchIconColorClass} />
-//                 behind Ayat Adebabay Station.
-//               </motion.p>
-//               <motion.div
-//                 whileHover={{ x: 5 }}
-//                 className="flex items-center gap-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-white"
-//               >
-//                 <FaPhone className={contactIconColorClass} />
-//                 <p className="text-gray-700 dark:text-gray-300 text-center">
-//                   (+251)936640980 <br />
-//                   (+251)970333383
-//                 </p>
-//               </motion.div>
-//               <motion.p
-//                 whileHover={{ x: 5 }}
-//                 className="text-gray-700 dark:text-gray-300 flex items-center"
-//               >
-//                 <FaEnvelope className={otherBranchIconColorClass} />
-//                 sabawelde561@gmail.com
-//               </motion.p>
-//             </div>
-//           </motion.div>
-//         </div>
-//       </motion.section>
-//     </div>
-//   );
-// }
-
-// export default Home;
