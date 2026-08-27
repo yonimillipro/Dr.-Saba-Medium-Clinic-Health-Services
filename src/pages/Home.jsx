@@ -239,7 +239,7 @@ function Home() {
             whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 28px)" }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden rounded-[28px] shadow-[0_26px_60px_rgba(16,36,62,0.16)]"
+            className="mobile-no-clip overflow-hidden rounded-[28px] shadow-[0_26px_60px_rgba(16,36,62,0.16)]"
           >
             <img
               src={storyImage}
@@ -354,6 +354,7 @@ function Home() {
             whileInView={{ opacity: 1, clipPath: "inset(0 0% 0 0 round 28px)" }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="mobile-no-clip"
           >
             <LocationMap />
           </motion.div>

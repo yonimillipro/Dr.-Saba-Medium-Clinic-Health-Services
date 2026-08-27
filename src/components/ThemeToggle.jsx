@@ -2,8 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/themeContext";
 
-// eslint-disable-next-line react/prop-types
-function ThemeToggle({ showLabel = false, className = "" }) {
+function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
   const nextTheme = isDark ? "light" : "dark";
@@ -12,9 +11,7 @@ function ThemeToggle({ showLabel = false, className = "" }) {
     <button
       type="button"
       onClick={toggleTheme}
-      className={`focus-ring group inline-flex items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white text-[#10243e] shadow-sm transition hover:-translate-y-0.5 hover:border-[#087f73]/40 hover:text-[#087f73] dark:border-white/10 dark:bg-[#10283a] dark:text-slate-100 dark:hover:border-teal-400/40 dark:hover:text-teal-300 ${
-        showLabel ? "h-12 w-full px-4" : "h-11 w-11"
-      } ${className}`}
+      className="focus-ring group inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-[#10243e] shadow-sm transition hover:border-[#087f73]/40 hover:text-[#087f73] dark:border-white/10 dark:bg-[#10283a] dark:text-slate-100 dark:hover:border-teal-400/40 dark:hover:text-teal-300 sm:hover:-translate-y-0.5"
       aria-label={`Switch to ${nextTheme} mode`}
       title={`Switch to ${nextTheme} mode`}
     >
@@ -32,14 +29,6 @@ function ThemeToggle({ showLabel = false, className = "" }) {
           </motion.span>
         </AnimatePresence>
       </span>
-      {showLabel && (
-        <span className="flex flex-1 items-center justify-between text-sm font-semibold">
-          <span>Appearance</span>
-          <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-            {isDark ? "Dark" : "Light"}
-          </span>
-        </span>
-      )}
     </button>
   );
 }

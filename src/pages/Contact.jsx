@@ -129,6 +129,7 @@ function Contact() {
           initial={{ opacity: 0, clipPath: "inset(0 100% 0 0 round 28px)" }}
           animate={{ opacity: 1, clipPath: "inset(0 0% 0 0 round 28px)" }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="mobile-no-clip"
         >
           <LocationMap />
         </motion.div>
