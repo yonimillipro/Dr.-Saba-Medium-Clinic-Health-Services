@@ -5,7 +5,7 @@ function ScrollToTop() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     resetScroll();
 
     const animationFrame = window.requestAnimationFrame(resetScroll);

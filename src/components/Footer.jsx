@@ -1,6 +1,8 @@
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
+import useCinematicScroll from "../hooks/useCinematicScroll";
 import logoSource from "../assets/d1.png";
 
 const footerLinks = [
@@ -11,14 +13,15 @@ const footerLinks = [
 ];
 
 function Footer() {
+  const scope = useRef(null);
+  const { pathname } = useLocation();
+  useCinematicScroll(scope, pathname);
+
   return (
-    <footer className="overflow-hidden bg-[#08213d] text-white">
+    <footer ref={scope} className="overflow-hidden bg-[#08213d] text-white">
       <div className="page-shell py-16 sm:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.65 }}
+        <div
+          data-motion-reveal
           className="flex flex-col justify-between gap-10 border-b border-white/15 pb-12 lg:flex-row lg:items-center"
         >
           <div className="flex items-center gap-3">
@@ -37,7 +40,7 @@ function Footer() {
               </Link>
             ))}
           </nav>
-        </motion.div>
+        </div>
 
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>

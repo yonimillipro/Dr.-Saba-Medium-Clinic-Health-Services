@@ -4,6 +4,7 @@ import { Menu, Phone, X } from "lucide-react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logoSource from "../assets/d1.png";
 import ThemeToggle from "./ThemeToggle";
+import ScrollProgress from "./ScrollProgress";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -159,6 +160,7 @@ function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
+      <ScrollProgress />
     </header>
   );
 }
