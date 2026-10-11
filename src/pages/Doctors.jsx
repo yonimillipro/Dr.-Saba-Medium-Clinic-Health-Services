@@ -1,5 +1,4 @@
 import { ArrowRight, HeartHandshake, Phone, Stethoscope } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import teamImage from "../assets/clinicIMG/nurse.jpg";
 
@@ -30,49 +29,36 @@ const doctors = [
   },
 ];
 
-const reveal = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 function Doctors() {
   return (
-    <div className="theme-page overflow-hidden pb-28 pt-[132px] sm:pt-[160px]">
+    <div className="theme-page pb-28 pt-[132px] sm:pt-[160px]">
       <section className="page-shell grid items-end gap-12 pb-20 lg:grid-cols-[0.94fr_1.06fr] lg:gap-20">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
-        >
-          <motion.div variants={reveal} className="eyeline-rule mb-8" />
-          <motion.h1
-            variants={reveal}
+        <div>
+          <div data-motion-enter className="eyeline-rule mb-8" />
+          <h1
+            data-motion-enter
             className="theme-heading font-display max-w-[700px] text-[clamp(3.8rem,8vw,7.7rem)] leading-[0.9] tracking-[-0.05em]"
           >
             Expertise,
             <br />
             with empathy.
-          </motion.h1>
-          <motion.p
-            variants={reveal}
+          </h1>
+          <p
+            data-motion-enter
             className="theme-copy mt-7 max-w-[570px] text-lg leading-8"
           >
             Our medical team brings broad experience to every consultation while
             keeping the conversation clear, respectful, and centered on you.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 28px)" }}
-          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 28px)" }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mobile-no-clip theme-soft relative overflow-hidden rounded-[28px]"
+        <div
+          data-motion-enter
+          data-motion-image
+          className="theme-soft relative overflow-hidden rounded-[28px]"
         >
           <img
+            data-motion-image-inner
             src={teamImage}
             alt="Consultation room at Doctor Saba Medical Center"
             className="aspect-[1.2/1] w-full object-cover"
@@ -82,36 +68,29 @@ function Doctors() {
               <HeartHandshake className="h-4 w-4" /> Patient-centered care
             </p>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <section className="theme-soft py-20 sm:py-28">
-        <div className="page-shell grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#087f73] dark:text-teal-300">
-              Our medical team
-            </p>
-            <h2 className="theme-heading font-display mt-4 text-4xl leading-tight sm:text-5xl">
-              Experience across the care you need most.
-            </h2>
-          </motion.div>
+        <div data-motion-pin-section className="page-shell grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
+          <div data-motion-pin className="lg:self-start">
+            <div data-motion-reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#087f73] dark:text-teal-300">
+                Our medical team
+              </p>
+              <h2 className="theme-heading font-display mt-4 text-4xl leading-tight sm:text-5xl">
+                Experience across the care you need most.
+              </h2>
+            </div>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-70px" }}
-            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+          <div
             className="border-t border-[#10243e]/15 dark:border-white/10"
           >
             {doctors.map((doctor) => (
-              <motion.article
+              <article
                 key={doctor.name}
-                variants={reveal}
+                data-motion-reveal
                 className="grid gap-5 border-b border-[#10243e]/15 py-7 dark:border-white/10 sm:grid-cols-[64px_1fr_auto] sm:items-center"
               >
                 <span className="grid h-14 w-14 place-items-center rounded-full bg-white font-display text-lg text-[#087f73] shadow-sm dark:bg-[#143542] dark:text-teal-300">
@@ -128,18 +107,15 @@ function Doctors() {
                 <p className="theme-muted text-sm sm:text-right">
                   {doctor.experience}
                 </p>
-              </motion.article>
+              </article>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="page-shell py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-90px" }}
-          transition={{ duration: 0.65 }}
+        <div
+          data-motion-reveal
           className="theme-border grid gap-8 border-y py-12 lg:grid-cols-[1fr_auto] lg:items-center"
         >
           <div className="flex gap-5">
@@ -170,7 +146,7 @@ function Doctors() {
               Contact details <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );

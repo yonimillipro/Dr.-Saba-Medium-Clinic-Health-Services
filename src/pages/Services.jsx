@@ -13,7 +13,6 @@ import {
   Stethoscope,
   Syringe,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -115,34 +114,22 @@ const services = [
   },
 ];
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.58, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 function Services() {
   return (
     <div className="theme-page pb-28 pt-[132px] sm:pt-[160px]">
       <section className="page-shell">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+        <div
           className="theme-border grid gap-10 border-b pb-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:pb-20"
         >
-          <motion.div variants={itemVariants}>
+          <div data-motion-enter>
             <div className="eyeline-rule mb-8" />
             <h1 className="theme-heading font-display max-w-[760px] text-[clamp(3.7rem,8vw,7.8rem)] leading-[0.9] tracking-[-0.05em]">
               Essential care,
               <br />
               thoughtfully connected.
             </h1>
-          </motion.div>
-          <motion.div variants={itemVariants} className="lg:pb-2">
+          </div>
+          <div data-motion-enter className="lg:pb-2">
             <p className="theme-copy max-w-[520px] text-lg leading-8">
               From first consultation to testing, treatment, and follow-up, our
               services are designed to make care feel clear and accessible.
@@ -153,44 +140,39 @@ function Services() {
             >
               Ask about a service <ArrowRight className="h-4 w-4" />
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       <section className="page-shell py-20 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-            className="lg:sticky lg:top-32 lg:self-start"
+        <div data-motion-pin-section className="grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
+          <div
+            data-motion-pin
+            className="lg:self-start"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#087f73] dark:text-teal-300">
-              Complete service list
-            </p>
-            <h2 className="theme-heading font-display mt-4 max-w-[360px] text-4xl leading-tight sm:text-5xl">
-              Care for everyday needs and more complex concerns.
-            </h2>
-            <p className="theme-copy mt-5 max-w-[380px] leading-7">
-              If you are unsure which service you need, call our team. We will
-              help you choose the right next step.
-            </p>
-          </motion.div>
+            <div data-motion-reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#087f73] dark:text-teal-300">
+                Complete service list
+              </p>
+              <h2 className="theme-heading font-display mt-4 max-w-[360px] text-4xl leading-tight sm:text-5xl">
+                Care for everyday needs and more complex concerns.
+              </h2>
+              <p className="theme-copy mt-5 max-w-[380px] leading-7">
+                If you are unsure which service you need, call our team. We will
+                help you choose the right next step.
+              </p>
+            </div>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-70px" }}
-            variants={{ visible: { transition: { staggerChildren: 0.065 } } }}
+          <div
             className="theme-border border-t"
           >
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <motion.article
+                <article
                   key={service.title}
-                  variants={itemVariants}
+                  data-motion-reveal
                   className="theme-border group grid gap-4 border-b py-7 sm:grid-cols-[52px_1fr_auto] sm:items-start sm:gap-6"
                 >
                   <span className="theme-icon-surface grid h-12 w-12 place-items-center rounded-full">
@@ -212,19 +194,16 @@ function Services() {
                   <span className="hidden pt-2 text-xs tabular-nums text-slate-400 sm:block">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                </motion.article>
+                </article>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="page-shell">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.65 }}
+        <div
+          data-motion-reveal
           className="theme-soft grid gap-8 rounded-[28px] px-7 py-10 sm:px-12 sm:py-14 lg:grid-cols-[1fr_auto] lg:items-center"
         >
           <div>
@@ -241,7 +220,7 @@ function Services() {
           >
             Contact the clinic <ArrowRight className="h-4 w-4" />
           </Link>
-        </motion.div>
+        </div>
       </section>
     </div>
   );

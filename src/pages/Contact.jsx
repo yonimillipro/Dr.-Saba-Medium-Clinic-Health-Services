@@ -6,7 +6,6 @@ import {
   Phone,
   ShieldAlert,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import LocationMap from "./LocationMap";
 
 const contactRows = [
@@ -37,34 +36,22 @@ const contactRows = [
   },
 ];
 
-const reveal = {
-  hidden: { opacity: 0, y: 26 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.62, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 function Contact() {
   return (
-    <div className="theme-page overflow-hidden pb-28 pt-[132px] sm:pt-[160px]">
+    <div className="theme-page pb-28 pt-[132px] sm:pt-[160px]">
       <section className="page-shell">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.11 } } }}
+        <div
           className="grid gap-10 pb-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:pb-20"
         >
-          <motion.div variants={reveal}>
+          <div data-motion-enter>
             <div className="eyeline-rule mb-8" />
             <h1 className="theme-heading font-display text-[clamp(4rem,9vw,8rem)] leading-[0.88] tracking-[-0.05em]">
               Here when
               <br />
               you need us.
             </h1>
-          </motion.div>
-          <motion.div variants={reveal} className="lg:pb-2">
+          </div>
+          <div data-motion-enter className="lg:pb-2">
             <p className="theme-copy max-w-[520px] text-lg leading-8">
               Visit our Summit location or call our team anytime. Emergency care
               is available 24/7.
@@ -83,23 +70,20 @@ function Contact() {
                 <Mail className="h-4 w-4" /> Send an email
               </a>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       <section className="page-shell grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch lg:gap-16">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.09, delayChildren: 0.2 } } }}
+        <div
           className="theme-border border-t"
         >
           {contactRows.map((row) => {
             const Icon = row.icon;
             return (
-              <motion.div
+              <div
                 key={row.label}
-                variants={reveal}
+                data-motion-reveal
                 className="theme-border grid grid-cols-[48px_1fr] gap-4 border-b py-5 sm:grid-cols-[52px_150px_1fr] sm:items-center"
               >
                 <span className="theme-icon-surface grid h-11 w-11 place-items-center rounded-full">
@@ -109,7 +93,7 @@ function Contact() {
                 <p className="theme-copy col-start-2 text-sm leading-6 sm:col-start-auto">
                   {row.content}
                 </p>
-              </motion.div>
+              </div>
             );
           })}
 
@@ -123,24 +107,16 @@ function Contact() {
               Get directions <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, clipPath: "inset(0 100% 0 0 round 28px)" }}
-          animate={{ opacity: 1, clipPath: "inset(0 0% 0 0 round 28px)" }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="mobile-no-clip"
-        >
+        <div data-motion-reveal>
           <LocationMap />
-        </motion.div>
+        </div>
       </section>
 
       <section className="page-shell mt-20 sm:mt-24">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.65 }}
+        <div
+          data-motion-reveal
           className="grid gap-8 rounded-[28px] bg-[#08213d] px-7 py-10 text-white sm:px-12 sm:py-14 lg:grid-cols-[auto_1fr_auto] lg:items-center"
         >
           <span className="grid h-14 w-14 place-items-center rounded-full bg-white/10 text-[#d5a52e]">
@@ -164,7 +140,7 @@ function Contact() {
           >
             <Phone className="h-4 w-4" /> (+251) 936 640 980
           </a>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
