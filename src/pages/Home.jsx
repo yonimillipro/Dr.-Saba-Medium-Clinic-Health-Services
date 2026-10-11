@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ClinicGallery from "./ClinicGallery";
+import CareOrbit from "../components/CareOrbit";
 import LocationMap from "./LocationMap";
 import heroImage from "../assets/clinicIMG/Med-equ.jpg";
 import storyImage from "../assets/clinicIMG/lab1.jpg";
@@ -128,6 +129,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <CareOrbit />
 
       <section className="py-24 sm:py-32">
         <div className="page-shell">
